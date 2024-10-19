@@ -116,6 +116,7 @@ if(OSQP_ALGEBRA_CUDA)
 endif()
 
 target_link_libraries(osqp_tester osqpstatic Catch2::Catch2 ${osqplib_link_libs})
+install(TARGETS osqp_tester)
 
 add_test(NAME osqp_tester COMMAND osqp_tester)
 

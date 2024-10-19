@@ -476,6 +476,7 @@ if(OSQP_BUILD_DEMO_EXE)
                               ${osqplib_includes}
                               ${OSQP_EXAMPLES_DIR}/problems )
   target_link_libraries(osqp_demo osqpstatic ${osqplib_link_libs})
+  install(TARGETS osqp_demo)
 
   if(OSQP_CODEGEN)
     add_executable(osqp_codegen_demo ${OSQP_EXAMPLES_DIR}/osqp_codegen_demo.c)
