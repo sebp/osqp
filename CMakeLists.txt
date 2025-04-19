@@ -59,20 +59,17 @@ include(Utils)
 option(OSQP_BUILD_SHARED_LIB "Build the shared library" ON)
 option(OSQP_BUILD_STATIC_LIB "Build the static library" ON)
 
-cmake_dependent_option( OSQP_BUILD_DEMO_EXE
+option( OSQP_BUILD_DEMO_EXE
                         "Build the demo executable (requires the static library)"
-                        ON    # Default to on
-                        OSQP_BUILD_STATIC_LIB OFF ) # Force off if the static library isn't built
+                        ON)    # Default to on
 
-cmake_dependent_option( OSQP_BUILD_UNITTESTS
+option( OSQP_BUILD_UNITTESTS
                         "Build the unit testing suite"
-                        OFF    # Default to off
-                        OSQP_BUILD_STATIC_LIB OFF ) # Force off if the static library isn't built
+                        OFF)    # Default to off
 
-cmake_dependent_option( OSQP_COVERAGE_CHECK
+option( OSQP_COVERAGE_CHECK
                         "Check the code coverage of the unit tests"
-                        OFF    # Default to off
-                        OSQP_BUILD_UNITTESTS OFF ) # Force off if the unit tests aren't built
+                        OFF)    # Default to off
 
 set(OSQP_ALGEBRA_BACKEND
     "builtin"
@@ -427,10 +424,6 @@ if(OSQP_BUILD_SHARED_LIB)
   add_library(osqp SHARED
               $<TARGET_OBJECTS:OSQPLIB>
               "${CMAKE_CURRENT_SOURCE_DIR}/src/osqp_api.c")
-  if(OSQP_ALGEBRA_BUILTIN)
-    # Transitive dependency on OBJECT library does not work. See https://gitlab.kitware.com/cmake/cmake/-/issues/18682
-    target_sources(osqp PRIVATE $<TARGET_OBJECTS:qdldlobject>)
-  endif()
   target_include_directories(osqp PRIVATE ${osqplib_includes})
   target_include_directories(osqp PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/public;${CMAKE_CURRENT_BINARY_DIR}/include/public>"
                                          "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/osqp>")
@@ -461,7 +454,7 @@ if(OSQP_BUILD_DEMO_EXE)
 
   add_executable(osqp_simple_demo
                  ${OSQP_EXAMPLES_DIR}/osqp_simple_demo.c )
-  target_link_libraries(osqp_simple_demo osqpstatic ${osqplib_link_libs})
+  target_link_libraries(osqp_simple_demo osqp ${osqplib_link_libs})
 
   add_executable(osqp_demo
                  ${OSQP_EXAMPLES_DIR}/osqp_demo.c
@@ -475,7 +468,7 @@ if(OSQP_BUILD_DEMO_EXE)
   target_include_directories(osqp_demo PRIVATE
                               ${osqplib_includes}
                               ${OSQP_EXAMPLES_DIR}/problems )
-  target_link_libraries(osqp_demo osqpstatic ${osqplib_link_libs})
+  target_link_libraries(osqp_demo osqp ${osqplib_link_libs})
   install(TARGETS osqp_demo)
 
   if(OSQP_CODEGEN)

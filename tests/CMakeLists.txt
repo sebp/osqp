@@ -88,7 +88,7 @@ add_executable(lin_alg_tester
 
 target_include_directories(lin_alg_tester PRIVATE
                            ${OSQP_LINALG_TESTER_INC_DIRS})
-target_link_libraries(lin_alg_tester osqpstatic Catch2::Catch2 ${osqplib_link_libs})
+target_link_libraries(lin_alg_tester osqp Catch2::Catch2 ${osqplib_link_libs})
 
 add_test(NAME lin_alg_tester COMMAND lin_alg_tester)
 
@@ -115,7 +115,7 @@ if(OSQP_ALGEBRA_CUDA)
                              ${CMAKE_CURRENT_SOURCE_DIR}/../../algebra/cuda/include/)
 endif()
 
-target_link_libraries(osqp_tester osqpstatic Catch2::Catch2 ${osqplib_link_libs})
+target_link_libraries(osqp_tester osqp Catch2::Catch2 ${osqplib_link_libs})
 install(TARGETS osqp_tester)
 
 add_test(NAME osqp_tester COMMAND osqp_tester)
@@ -138,7 +138,7 @@ if(OSQP_ALGEBRA_BUILTIN)
                              ${CMAKE_CURRENT_SOURCE_DIR}/utils/
                              ${CMAKE_CURRENT_SOURCE_DIR}/../include/private
                              ${osqplib_includes})
-  target_link_libraries(osqp_tester_custom_memory osqpstatic Catch2::Catch2 ${osqplib_link_libs})
+  target_link_libraries(osqp_tester_custom_memory osqp Catch2::Catch2 ${osqplib_link_libs})
 
   add_test(NAME osqp_tester_custom_memory COMMAND osqp_tester_custom_memory)
 endif()

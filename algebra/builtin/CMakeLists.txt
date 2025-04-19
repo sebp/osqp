@@ -6,6 +6,8 @@ if(NOT OSQP_EMBEDDED_MODE)
        ${LIN_SYS_QDLDL_NON_EMBEDDED_SRC_FILES} )
 endif()
 
+find_package(qdldl REQUIRED)
+
 target_sources(
   OSQPLIB
   PRIVATE ../_common/csc_math.h
@@ -18,7 +20,7 @@ target_sources(
           matrix.c
           ${NON_EMBEDDED_SRC_FILES}
           ${LIN_SYS_QDLDL_EMBEDDED_SRC_FILES}
-          $<TARGET_OBJECTS:qdldlobject> )
+          )
 
 target_include_directories(
   OSQPLIB
@@ -26,6 +28,8 @@ target_include_directories(
           ${CMAKE_CURRENT_SOURCE_DIR}
           ${LIN_SYS_QDLDL_INC_PATHS} )
 
+target_include_directories(OSQPLIB PUBLIC ${qdldl_INCLUDE_DIRS})
+target_link_libraries(OSQPLIB qdldl::qdldl)
 
 # Setup the file copying for the code generation target
 if( OSQP_CODEGEN )
