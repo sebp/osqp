@@ -146,13 +146,10 @@ endif()
 # ----------------------------------------------
 # Create a folder to store the test codes
 # ----------------------------------------------
-file( MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testcodes )
-file( MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testcodes/embedded1 )
-file( MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testcodes/embedded2 )
 
-add_compile_definitions(CODEGEN_DIR="${CMAKE_CURRENT_BINARY_DIR}/testcodes/")
-add_compile_definitions(CODEGEN1_DIR="${CMAKE_CURRENT_BINARY_DIR}/testcodes/embedded1/")
-add_compile_definitions(CODEGEN2_DIR="${CMAKE_CURRENT_BINARY_DIR}/testcodes/embedded2/")
+add_compile_definitions(CODEGEN_DIR="./testcodes/")
+add_compile_definitions(CODEGEN1_DIR="./testcodes/embedded1/")
+add_compile_definitions(CODEGEN2_DIR="./testcodes/embedded2/")
 
 option(OSQP_GENERATE_COVERAGE_REPORT "Generate an HTML coverage report")
 mark_as_advanced(OSQP_GENERATE_COVERAGE_REPORT)
