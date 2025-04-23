@@ -35,7 +35,7 @@ extern "C" {
  *KKT
  * @return            return status flag
  */
- OSQPCscMatrix* form_KKT(OSQPCscMatrix* P,
+OSQP_API OSQPCscMatrix* form_KKT(OSQPCscMatrix* P,
                          OSQPCscMatrix* A,
                          OSQPInt        format,
                          OSQPFloat      param1,
@@ -60,7 +60,7 @@ extern "C" {
  * @param param1    Parameter added to the diagonal elements of P
  * @param format    0 for CSC, 1 for CSR
  */
- void update_KKT_P(OSQPCscMatrix* KKT,
+OSQP_API void update_KKT_P(OSQPCscMatrix* KKT,
                    OSQPCscMatrix* P,
                    const OSQPInt* Px_new_idx,
                    OSQPInt        P_new_n,
@@ -78,7 +78,7 @@ extern "C" {
  * @param A_new_n   number of elements of A to be updated
  * @param AtoKKT    Vector of pointers from A->x to KKT->x
  */
- void update_KKT_A(OSQPCscMatrix* KKT,
+OSQP_API void update_KKT_A(OSQPCscMatrix* KKT,
                    OSQPCscMatrix* A,
                    const OSQPInt* Ax_new_idx,
                    OSQPInt        A_new_n,
@@ -94,7 +94,7 @@ extern "C" {
  * @param param2toKKT   index where param2 enters in the KKT matrix
  * @param m             number of constraints
  */
-void update_KKT_param2(OSQPCscMatrix* KKT,
+OSQP_API void update_KKT_param2(OSQPCscMatrix* KKT,
                        OSQPFloat*     param2,
                        OSQPFloat      param2_sc,
                        OSQPInt*       param2toKKT,
